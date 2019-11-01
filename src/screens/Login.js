@@ -1,11 +1,11 @@
-/* eslint-disable react/jsx-key */
-import React, { Component } from 'react';
+import React, { useContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import Button from 'react-native-button';
-import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import { ActionSheetContext } from 'react-native-propel-kit';
 
 import { Layout } from '../components/Login/Layout';
+import { LegalAgreement } from '../components/Login/LegalAgreement';
 
 const Title = styled.Text`
   text-align: center;
@@ -19,12 +19,8 @@ const MessageSigIn = styled.Text`
   color: #3291ff;
 `;
 
-const MessageInfo = styled.Text`
+const Text = styled.Text`
   text-align: right;
-  color: #111;
-`;
-
-const MessageSheet = styled.Text`
   color: #111;
 `;
 
@@ -40,85 +36,90 @@ const Wrap = styled.View`
   margin-top: 25px;
 `;
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+const Login = props => {
+  const {
+    navigation: { navigate }
+  } = props;
 
-    this.showActionSheet = this.showActionSheet.bind(this);
-    this.showDemo = this.showDemo.bind(this);
-    this.options = [
-      'Cancel',
-      <MessageSheet>Anonimo</MessageSheet>,
-      <MessageSheet>Confidencial</MessageSheet>,
-      <MessageSheet>Caso de prueba</MessageSheet>
-    ];
-  }
-  showActionSheet() {
-    this.ActionSheet.show();
-  }
-  showDemo(index) {
-    const {
-      navigation: { navigate }
-    } = this.props;
-    if (index === 1) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [indexBt, setIndexBt] = useState(null);
+  const actionSheet = useContext(ActionSheetContext);
+
+  const showModal = buttonIndex => {
+    if (buttonIndex !== 0) {
+      setIsModalVisible(true);
+      setIndexBt(buttonIndex);
+    }
+  };
+
+  const closeModal = () => {
+    if (indexBt === 1) {
+      setIsModalVisible(false);
       navigate('Anonymous');
     }
-    if (index === 2) {
+    if (indexBt === 2) {
+      setIsModalVisible(false);
       navigate('Confidential');
     }
-    if (index === 3) {
+    if (indexBt === 3) {
+      setIsModalVisible(false);
       navigate('TestCase');
     }
-  }
-  render() {
-    const {
-      navigation: { navigate }
-    } = this.props;
-    return (
-      <Layout>
-        <Wrap>
-          <Title>usuario</Title>
-          <Input keyboardType={'email-address'} />
-        </Wrap>
-        <Wrap>
-          <Title>contraseña</Title>
-          <Input />
-        </Wrap>
-        <Wrap>
-          <MessageInfo>
-            ¿olvide contraseña?{'  '}
-            <MessageSigIn onPress={() => navigate('SignIn')}>
-              nuevo usuario
-            </MessageSigIn>
-          </MessageInfo>
-        </Wrap>
-        <Wrap>
-          <Button
-            style={{ color: '#fff' }}
-            containerStyle={{
-              flex: 1,
-              padding: 10,
-              borderRadius: 10,
-              backgroundColor: '#000',
-              marginTop: 35
-            }}
-            onPress={this.showActionSheet}
-          >
-            registro de eventos criticos
-          </Button>
-          <ActionSheet
-            ref={o => (this.ActionSheet = o)}
-            title={'¿Qué necesitas ?'}
-            options={this.options}
-            cancelButtonIndex={0}
-            destructiveButtonIndex={4}
-            onPress={index => this.showDemo(index)}
-          />
-        </Wrap>
-      </Layout>
+  };
+
+  const showActionSheet = useCallback(() => {
+    actionSheet.showWithOptions(
+      {
+        title: '¿Qué necesitas?',
+        options: ['Cancel', 'Anonimo', 'Confidencial', 'Caso prueba'],
+        cancelButtonIndex: 0
+      },
+      buttonIndex => {
+        showModal(buttonIndex);
+      },
+      [actionSheet]
     );
-  }
-}
+  });
+  return (
+    <Layout>
+      <Wrap>
+        <Title>usuario</Title>
+        <Input keyboardType={'email-address'} />
+      </Wrap>
+      <Wrap>
+        <Title>contraseña</Title>
+        <Input />
+      </Wrap>
+      <Wrap>
+        <Text>
+          ¿olvide contraseña?{'  '}
+          <MessageSigIn onPress={() => navigate('SignIn')}>
+            nuevo usuario
+          </MessageSigIn>
+        </Text>
+      </Wrap>
+      <Wrap>
+        <Button
+          style={{ color: '#fff' }}
+          containerStyle={{
+            flex: 1,
+            padding: 10,
+            borderRadius: 10,
+            backgroundColor: '#000',
+            marginTop: 35
+          }}
+          onPress={showActionSheet}
+        >
+          registro de eventos criticos
+        </Button>
+        <LegalAgreement
+          isModalVisible={isModalVisible}
+          closeModal={closeModal}
+        />
+      </Wrap>
+    </Layout>
+  );
+};
 
 Login.propTypes = {
   navigation: PropTypes.object.isRequired
