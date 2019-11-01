@@ -1,6 +1,7 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { BackdropProvider, ActionSheetProvider } from 'react-native-propel-kit';
 
 import Login from './screens/Login';
 import SignIn from './screens/SignIn';
@@ -17,18 +18,10 @@ const MainStack = createStackNavigator(
     Home: {
       screen: Login
     },
-    SignIn: {
-      screen: SignIn
-    },
-    Anonymous: {
-      screen: Anonymous
-    },
-    Confidential: {
-      screen: Confidential
-    },
-    TestCase: {
-      screen: TestCase
-    }
+    SignIn: SignIn,
+    Anonymous: Anonymous,
+    Confidential: Confidential,
+    TestCase: TestCase
   },
   config
 );
@@ -36,7 +29,13 @@ const MainStack = createStackNavigator(
 const AppContainer = createAppContainer(MainStack);
 
 const App = () => {
-  return <AppContainer />;
+  return (
+    <BackdropProvider>
+      <ActionSheetProvider>
+        <AppContainer />
+      </ActionSheetProvider>
+    </BackdropProvider>
+  );
 };
 
 export default App;
