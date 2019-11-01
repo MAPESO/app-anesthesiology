@@ -8,9 +8,9 @@ import CheckBox from 'react-native-check-box';
 import RNPickerSelect from 'react-native-picker-select';
 import tinytime from 'tinytime';
 
-import { Layout } from '../components/Form/Layout';
-import { Title } from '../components/Form/Title';
-import { InputDate } from '../components/Form/InputDate';
+import { Layout } from '../components/SignIn/Layout';
+import { Title } from '../components/SignIn/Title';
+import { InputDate } from '../components/SignIn/InputDate';
 import { countries } from '../lib/utils/country';
 import { societys } from '../lib/utils/society';
 
