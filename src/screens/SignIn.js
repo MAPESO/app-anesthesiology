@@ -14,7 +14,7 @@ import { InputDate } from '../components/SignIn/InputDate';
 import { countries } from '../lib/utils/country';
 import { societys } from '../lib/utils/society';
 
-const Form = () => {
+const SignIn = () => {
   const [nameInput, setName] = useState('');
   const [lastInput, setLast] = useState('');
   const [emailInput, setEmail] = useState('');
@@ -107,7 +107,7 @@ const Form = () => {
         value={phoneInput}
         onChangeText={value => setPhone(value)}
       />
-      <Title>Cumpleaños</Title>
+      <Title>Fecha de nacimiento</Title>
       <InputDate showDialog={showDateTimePicker} date={birthday} />
       <DateTimePicker
         isVisible={isDateVisible}
@@ -184,7 +184,7 @@ const Form = () => {
         }}
         onPress={handlePress}
       >
-        Send
+        Enviar
       </Button>
     </Layout>
   );
@@ -214,4 +214,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Form;
+export default SignIn;
