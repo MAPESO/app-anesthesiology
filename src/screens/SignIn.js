@@ -132,7 +132,7 @@ const SignIn = () => {
             <FormSelect
               name="country"
               placeholder={{
-                label: 'Seleccione una país...',
+                label: 'Seleccione un país...',
                 value: null,
                 color: '#9EA0A4'
               }}
