@@ -1,217 +1,176 @@
 // Packages
+import * as Yup from 'yup';
+import { Formik } from 'formik';
 import React, { useState } from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 import Button from 'react-native-button';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-import RadioGroup from 'react-native-radio-button-group';
-import CheckBox from 'react-native-check-box';
-import RNPickerSelect from 'react-native-picker-select';
 import tinytime from 'tinytime';
 
+// Components
 import { Layout } from '../components/SignIn/Layout';
-import { Title } from '../components/SignIn/Title';
-import { InputDate } from '../components/SignIn/InputDate';
+import { Label } from '../components/Form/Label';
+import { FormInput } from '../components/Form/FormInput';
+import FormRadioButton from '../components/Form/FormRadio';
+import FormSelect from '../components/Form/FormSelect';
+
+// Utils
 import { countries } from '../lib/utils/country';
 import { societys } from '../lib/utils/society';
 
-const SignIn = () => {
-  const [nameInput, setName] = useState('');
-  const [lastInput, setLast] = useState('');
-  const [emailInput, setEmail] = useState('');
-  const [ageInput, setAge] = useState('');
-  const [phoneInput, setPhone] = useState('');
-  const [countryInput, setCountry] = useState('');
-  const [addressInput, setAddress] = useState('');
-  const [specialtyInput, setSpecialty] = useState('');
-  const [subspecialtyInput, setSubspecialty] = useState('');
-  const [societyInput, setSociety] = useState('');
-  const [gender, setGender] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [userID, setUserID] = useState('');
-  const [residentInput, setResident] = useState(false);
-  const [isDateVisible, setDateVisible] = useState(false);
+const MessageSuccess = styled.Text`
+  color: #0070f3;
+  padding: 10px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+`;
 
-  const residentValue = residentInput ? 'si' : 'no';
-  const showDateTimePicker = () => {
-    setDateVisible(true);
-  };
-  const hideDateTimePicker = () => {
-    setDateVisible(false);
-  };
-  const handleDate = date => {
-    // formatear la hora
-    const template = tinytime('{DD}-{MMMM}-{YYYY}');
-    setBirthday(template.render(date));
-    hideDateTimePicker();
-  };
-  const sendData = () => {
-    fetch('https://anestesia.now.sh/api', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: nameInput,
-        lastName: lastInput,
-        age: ageInput,
-        email: emailInput,
-        phone: phoneInput,
-        birthday,
-        gender: gender.label,
-        nationality: countryInput,
-        address: addressInput,
-        specialty: specialtyInput,
-        subSpecialty: subspecialtyInput,
-        resident: residentValue,
-        userID,
-        society: societyInput
-      })
-    });
-  };
-  const handlePress = () => {
-    sendData();
-  };
+const radiogroup_options = [
+  { id: 0, label: 'anestesiólogo' },
+  { id: 1, label: 'residente' }
+];
+
+const initialState = {
+  name: '',
+  lastName: '',
+  email: '',
+  dni: '',
+  jobRole: '',
+  country: '',
+  society: ''
+};
+const yupSchema = Yup.object().shape({
+  name: Yup.string().required('Requerido'),
+  lastName: Yup.string().required('Requerido'),
+  email: Yup.string()
+    .email()
+    .required('Requerido'),
+  dni: Yup.string().required('Requerido'),
+  jobRole: Yup.string().required('Requerido'),
+  country: Yup.string().required('Requerido'),
+  society: Yup.string().required('Requerido')
+});
+
+const SignIn = () => {
+  const [successRegistry, setRegistry] = useState(false);
   return (
-    <Layout>
-      <Title>Nombre</Title>
-      <TextInput
-        style={styles.input}
-        value={nameInput}
-        onChangeText={value => setName(value)}
-      />
-      <Title>Apellido</Title>
-      <TextInput
-        style={styles.input}
-        value={lastInput}
-        onChangeText={value => setLast(value)}
-      />
-      <Title>Edad</Title>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={ageInput}
-        onChangeText={value => setAge(value)}
-      />
-      <Title>Email</Title>
-      <TextInput
-        style={styles.input}
-        keyboardType="email-address"
-        value={emailInput}
-        onChangeText={value => setEmail(value)}
-      />
-      <Title>Teléfono</Title>
-      <TextInput
-        style={styles.input}
-        keyboardType="phone-pad"
-        value={phoneInput}
-        onChangeText={value => setPhone(value)}
-      />
-      <Title>Fecha de nacimiento</Title>
-      <InputDate showDialog={showDateTimePicker} date={birthday} />
-      <DateTimePicker
-        isVisible={isDateVisible}
-        onCancel={hideDateTimePicker}
-        onConfirm={handleDate}
-      />
-      <Title>Genero</Title>
-      <RadioGroup
-        circleStyle={{
-          borderColor: '#999',
-          borderWidth: 0.5,
-          marginRight: 10,
-          fillColor: '#111'
-        }}
-        options={[{ id: 0, label: 'hombre' }, { id: 1, label: 'mujer' }]}
-        onChange={option => setGender(option)}
-      />
-      <Title>Nacionalidad</Title>
-      <RNPickerSelect
-        placeholder={{ label: '' }}
-        value={countryInput}
-        items={countries}
-        onValueChange={value => setCountry(value)}
-        useNativeAndroidPickerStyle={false}
-        style={{ ...styles }}
-      />
-      <Title>Dirección</Title>
-      <TextInput
-        style={styles.input}
-        value={addressInput}
-        onChangeText={value => setAddress(value)}
-      />
-      <Title>Especialidad</Title>
-      <TextInput
-        style={styles.input}
-        value={specialtyInput}
-        onChangeText={value => setSpecialty(value)}
-      />
-      <Title>Subespecialidad</Title>
-      <TextInput
-        style={styles.input}
-        value={subspecialtyInput}
-        onChangeText={value => setSubspecialty(value)}
-      />
-      <Title>¿Eres residente?</Title>
-      <CheckBox
-        style={{ flex: 1, padding: 5 }}
-        isChecked={residentInput}
-        onClick={() => setResident(!residentInput)}
-      />
-      <Title>Cédula (una foto de calidad)</Title>
-      <TextInput
-        style={styles.input}
-        value={userID}
-        onChangeText={value => setUserID(value)}
-      />
-      <Title>Socidad a la que pertenece</Title>
-      <RNPickerSelect
-        placeholder={{ label: '' }}
-        value={societyInput}
-        items={societys}
-        onValueChange={value => setSociety(value)}
-        useNativeAndroidPickerStyle={false}
-        style={{ ...styles }}
-      />
-      <Button
-        style={{ color: '#fff' }}
-        containerStyle={{
-          flex: 1,
-          margin: 10,
-          padding: 10,
-          borderRadius: 10,
-          backgroundColor: '#000'
-        }}
-        onPress={handlePress}
-      >
-        Enviar
-      </Button>
-    </Layout>
+    <Formik
+      initialValues={initialState}
+      validationSchema={yupSchema}
+      onSubmit={values => {
+        const template = tinytime('{DD}/{MM}/{YYYY}');
+        fetch('https://anestesia-dashboard.justinmark.now.sh/api/user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: values.name,
+            lastName: values.lastName,
+            email: values.email,
+            jobRole: values.jobRole.label,
+            dni: values.dni,
+            country: values.country,
+            society: values.society,
+            date: template.render(new Date())
+          })
+        })
+          .then(() => {
+            console.log('se enviaron los datos');
+            setRegistry(true);
+            fetch('https://anestesia-registry.now.sh/api/send-email', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: values.email,
+                society: values.society
+              })
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }}
+    >
+      {bagFormik => {
+        const { handleSubmit, handleBlur, handleChange, errors } = bagFormik;
+        return (
+          <Layout>
+            <Label>Nombre</Label>
+            <FormInput
+              name="name"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={errors.name}
+            />
+            <Label>Apellido</Label>
+            <FormInput
+              name="lastName"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={errors.lastName}
+            />
+            <Label>Email</Label>
+            <FormInput
+              name="email"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={errors.email}
+            />
+            <Label>DNI</Label>
+            <FormInput
+              name="dni"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={errors.dni}
+            />
+            <FormRadioButton
+              name="jobRole"
+              options={radiogroup_options}
+              horizontal={true}
+              error={errors.jobRole}
+            />
+            <Label>País</Label>
+            <FormSelect
+              name="country"
+              placeholder={{
+                label: 'Seleccione una país...',
+                value: null,
+                color: '#9EA0A4'
+              }}
+              options={countries}
+              error={errors.country}
+            />
+            <Label>Sociedad</Label>
+            <FormSelect
+              name="society"
+              placeholder={{
+                label: 'Seleccione una sociedad...',
+                value: null,
+                color: '#9EA0A4'
+              }}
+              options={societys}
+              error={errors.society}
+            />
+            {successRegistry && (
+              <MessageSuccess>Registro exitoso</MessageSuccess>
+            )}
+            <Button
+              style={{ color: '#fff' }}
+              containerStyle={{
+                flex: 1,
+                margin: 10,
+                padding: 10,
+                borderRadius: 10,
+                backgroundColor: '#000'
+              }}
+              onPress={handleSubmit}
+            >
+              Enviar
+            </Button>
+          </Layout>
+        );
+      }}
+    </Formik>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    borderColor: '#000',
-    borderWidth: 0.5,
-    borderRadius: 4,
-    marginBottom: 20
-  },
-  inputIOS: {
-    height: 40,
-    borderColor: '#000',
-    borderWidth: 0.5,
-    borderRadius: 4,
-    marginBottom: 20
-  },
-  inputAndroid: {
-    height: 40,
-    borderColor: '#000',
-    borderWidth: 0.5,
-    borderRadius: 4,
-    marginBottom: 20
-  }
-});
 
 export default SignIn;
