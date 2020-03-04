@@ -1,76 +1,118 @@
 // Packages
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import React, { useContext } from 'react';
+import { View, Text } from 'react-native';
+import { Textarea } from 'native-base';
 // Components
-import { Layout } from '../SignIn/Layout';
-import { Label } from '../Form/Label';
-import RNPickerSelect from 'react-native-picker-select';
+import { Layout } from '../UI/Layout';
+import { Content } from '../UI/Content';
+import { Label } from '../UI/Label';
+import { Header } from '../UI/Header';
+import { Select } from '../UI/Select';
+
+// Context
+import { AnoContext } from '../../context/AnoContext';
 
 // Utils
-import { patients, ages } from '../../lib/utils/describingOption';
+import {
+  patients,
+  ages,
+  imc,
+  asa,
+  locations,
+  time,
+  doctor,
+  other,
+  typeProblem
+} from '../../lib/utils/describingOption';
 
-const styles = {
-  inputIOS: {
-    paddingLeft: 14,
-    height: 40,
-    borderColor: '#000',
-    borderWidth: 0.5,
-    borderRadius: 4,
-    marginBottom: 20
-  },
-  inputAndroid: {
-    paddingLeft: 14,
-    height: 40,
-    borderColor: '#000',
-    borderWidth: 0.5,
-    borderRadius: 4,
-    marginBottom: 20
-  }
-};
-
-// eslint-disable-next-line react/prop-types
-const FormSelect = ({ value, options, onValueChange }) => {
-  return (
-    <RNPickerSelect
-      placeholder={{
-        label: 'Seleccione...',
-        value: null,
-        color: '#9EA0A4'
-      }}
-      value={value}
-      items={options}
-      onValueChange={onValueChange}
-      useNativeAndroidPickerStyle={false}
-      style={{ ...styles }}
-    />
-  );
-};
-
-const DescriptionRoute = ({ state, setState }) => {
-  console.log(state.patientSelect);
-  console.log(state.ageSelect);
+const DescriptionRoute = () => {
+  const user = useContext(AnoContext);
   return (
     <Layout>
-      <Label>Paciente</Label>
-      <FormSelect
-        value={state.patientSelect}
-        options={patients}
-        onValueChange={value => setState({ patientSelect: value })}
-      />
-      <Label>Edad</Label>
-      <FormSelect
-        value={state.ageSelect}
-        options={ages}
-        onValueChange={value => setState({ ageSelect: value })}
-      />
+      <Header title="Información general" />
+      <Content>
+        <Label>Paciente</Label>
+        <Select
+          value={user.patientSelect}
+          options={patients}
+          onValueChange={user.setPatient}
+        />
+        <Label>Edad</Label>
+        <Select
+          value={user.ageSelect}
+          options={ages}
+          onValueChange={user.setAge}
+        />
+        <Label>IMC</Label>
+        <Select
+          value={user.imcSelect}
+          options={imc}
+          onValueChange={user.setImc}
+        />
+        <Label>ASA</Label>
+        <Select
+          value={user.asaSelect}
+          options={asa}
+          onValueChange={user.setAsa}
+        />
+        <Label>Ubicación</Label>
+        <Select
+          value={user.locationSelect}
+          options={locations}
+          onValueChange={user.setLocation}
+        />
+        <Label>Hora</Label>
+        <Select
+          value={user.timeSelect}
+          options={time}
+          onValueChange={user.setTime}
+        />
+        <Text
+          style={{
+            fontSize: 15,
+            fontWeight: 'bold',
+            fontStyle: 'italic'
+          }}
+        >
+          Personal
+        </Text>
+        <View style={{ marginTop: 20 }}>
+          <Label>Médico Asistente</Label>
+          <Select
+            value={user.assistantSelect}
+            options={doctor}
+            onValueChange={user.setAssistant}
+          />
+          <Label>Médico Supervisor</Label>
+          <Select
+            value={user.supevisorSelect}
+            options={doctor}
+            onValueChange={user.setSupevisor}
+          />
+          <Label>Otro</Label>
+          <Select
+            value={user.otherSelect}
+            options={other}
+            onValueChange={user.setOther}
+          />
+          <Label>Tipo de procedimiento</Label>
+          <Select
+            value={user.problemSelect}
+            options={typeProblem}
+            onValueChange={user.setProblem}
+          />
+          <Label>Descripción del incidente</Label>
+          <Textarea
+            bordered
+            rowSpan={5}
+            value={user.descriptionProblem}
+            onChangeText={text => user.setDescription(text)}
+          />
+          <View style={{ marginTop: 25 }}></View>
+        </View>
+      </Content>
     </Layout>
   );
-};
-
-DescriptionRoute.propTypes = {
-  state: PropTypes.object.isRequired,
-  setState: PropTypes.object.isRequired
 };
 
 export { DescriptionRoute };
