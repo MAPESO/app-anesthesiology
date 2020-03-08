@@ -327,7 +327,7 @@ const SECTIONS = [
     id: 9,
     title: 'Complicaciones vasculares',
     data: [
-      { label: 'Acceso venoso', value: true },
+      { label: 'Acceso venoso', value: false },
       { label: 'Acceso trombosis', subTitle: 'Línea arterial', value: false },
       { label: 'Hematoma', value: false },
       {
