@@ -1,27 +1,28 @@
 // Packages
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
-
-const HeaderContainer = styled.View`
-  flex: 1;
-  height: 30;
-  background-color: #333;
-  padding-top: 5;
-  padding-left: 5;
-`;
-
-const Text = styled.Text`
-  color: #fff;
-`;
+import { Text, View, StyleSheet } from 'react-native';
 
 const Header = ({ title }) => {
   return (
-    <HeaderContainer>
-      <Text>{title}</Text>
-    </HeaderContainer>
+    <View style={styles.HeaderContainer}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  HeaderContainer: {
+    flex: 1,
+    height: 30,
+    paddingTop: 5,
+    paddingLeft: 5,
+    backgroundColor: '#333'
+  },
+  title: {
+    color: '#fff'
+  }
+});
 
 Header.propTypes = {
   title: PropTypes.string.isRequired
