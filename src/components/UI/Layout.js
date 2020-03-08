@@ -1,25 +1,29 @@
 // Packages
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
-import { View, ScrollView } from 'react-native';
-
-const Container = styled.View`
-  flex: 1;
-`;
+import { View, ScrollView, StyleSheet } from 'react-native';
 
 const Layout = ({ children }) => {
   return (
-    <Container>
+    <View style={styles.container}>
       <ScrollView>
         <View>{children}</View>
       </ScrollView>
-    </Container>
+    </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
+
 Layout.propTypes = {
-  children: PropTypes.array.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 };
 
 export { Layout };
