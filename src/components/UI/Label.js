@@ -1,20 +1,25 @@
 // Packages
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
-
-const Title = styled.Text`
-  font-size: 18;
-  margin-bottom: 8;
-  text-align: left;
-`;
+import { Text, StyleSheet } from 'react-native';
 
 const Label = ({ children }) => {
-  return <Title>{children}</Title>;
+  return <Text style={styles.title}>{children}</Text>;
 };
 
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 18,
+    marginBottom: 8,
+    textAlign: 'left'
+  }
+});
+
 Label.propTypes = {
-  children: PropTypes.string.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 };
 
 export { Label };
