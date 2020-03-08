@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 
 const Content = ({ children }) => {
-  return <View style={styles.contentContainer}>{children}</View>;
+  return <View style={styles.container}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
-  contentContainer: {
+  container: {
     marginTop: 10,
     paddingLeft: 15,
     paddingRight: 15
@@ -16,7 +16,10 @@ const styles = StyleSheet.create({
 });
 
 Content.propTypes = {
-  children: PropTypes.array.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 };
 
 export { Content };
