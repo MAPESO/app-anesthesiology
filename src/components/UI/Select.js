@@ -27,7 +27,7 @@ const Select = ({ value, options, onValueChange }) => {
     <RNPickerSelect
       placeholder={{
         label: 'Seleccione...',
-        value: null,
+        value: '',
         color: '#9EA0A4'
       }}
       value={value}
