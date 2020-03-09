@@ -8,7 +8,7 @@ import tinytime from 'tinytime';
 
 // Components
 import { Layout } from '../components/SignIn/Layout';
-import { Label } from '../components/Form/Label';
+import { Label } from '../components/UI/Label';
 import { FormInput } from '../components/Form/FormInput';
 import FormRadioButton from '../components/Form/FormRadio';
 import FormSelect from '../components/Form/FormSelect';
