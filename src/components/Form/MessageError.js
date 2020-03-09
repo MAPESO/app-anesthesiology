@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
-
-const Title = styled.Text`
-  font-size: 13;
-  color: #ff3333;
-  margin-bottom: 10;
-`;
+import { Text, StyleSheet } from 'react-native';
 
 const MessageError = ({ children }) => {
-  return <Title>{children}</Title>;
+  return <Text style={styles.messageError}>{children}</Text>;
 };
+
+const styles = StyleSheet.create({
+  messageError: {
+    fontSize: 13,
+    color: '#ff3333',
+    marginBottom: 10
+  }
+});
 
 MessageError.propTypes = {
   children: PropTypes.string.isRequired
