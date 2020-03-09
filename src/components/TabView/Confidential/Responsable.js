@@ -19,18 +19,32 @@ const ResponsableRoute = () => {
       <Content>
         <Label>CFP</Label>
         <TextInput
+          value={user.cfp}
+          onChangeText={text => user.setCfp(text)}
           style={styles.formInput}
           placeholder="Ingrese su número de seguro social"
         />
         <Label>CRM</Label>
-        <TextInput style={styles.formInput} placeholder="Ingrese su CRM" />
+        <TextInput
+          value={user.crm}
+          onChangeText={text => user.setCrm(text)}
+          style={styles.formInput}
+          placeholder="Ingrese su CRM"
+        />
         <Label>Nombre</Label>
-        <TextInput style={styles.formInput} placeholder="Ingrese su nombre" />
+        <TextInput
+          value={user.name}
+          onChangeText={text => user.setName(text)}
+          style={styles.formInput}
+          placeholder="Ingrese su nombre"
+        />
         <Label>Email</Label>
         <TextInput
+          value={user.email}
+          onChangeText={text => user.setEmail(text)}
           style={styles.formInput}
-          keyboardType="email-address"
           placeholder="Ingrese su email"
+          keyboardType="email-address"
         />
       </Content>
     </Layout>
