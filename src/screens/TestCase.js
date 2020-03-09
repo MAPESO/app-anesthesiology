@@ -31,7 +31,9 @@ const TestCase = () => {
   const [problemSelect, setProblem] = useState('');
   const [descriptionProblem, setDescription] = useState('');
   // State of classification
-
+  const [activeSections, setActiveSections] = useState([]);
+  const [isChecked, setChecked] = useState([]);
+  const [gravitySelect, setGravity] = useState();
   // State of reflection
   const [radioGroup, setRadioGroup] = useState('');
   const [radioGroup2, setRadioGroup2] = useState('');
@@ -83,6 +85,12 @@ const TestCase = () => {
     descriptionProblem,
     setDescription,
     // State of classification
+    activeSections,
+    setActiveSections,
+    isChecked,
+    setChecked,
+    gravitySelect,
+    setGravity,
     // State of reflection
     radioGroup,
     setRadioGroup,

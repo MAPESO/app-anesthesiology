@@ -1,25 +1,26 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
-import styled from 'styled-components/native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-
-const Container = styled.View`
-  flex: 1;
-  margin-top: 30;
-  padding-left: 15;
-  padding-right: 15;
-`;
 
 const Layout = props => {
   const { children } = props;
   return (
-    <Container>
+    <View style={styles.container}>
       <ScrollView>
         <View>{children}</View>
       </ScrollView>
-    </Container>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 30,
+    paddingLeft: 15,
+    paddingRight: 15
+  }
+});
 
 Layout.propTypes = {
   children: PropTypes.array.isRequired

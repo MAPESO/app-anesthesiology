@@ -2,7 +2,7 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import React, { useState } from 'react';
-import styled from 'styled-components/native';
+import { StyleSheet, Text } from 'react-native';
 import Button from 'react-native-button';
 import tinytime from 'tinytime';
 
@@ -12,42 +12,44 @@ import { Label } from '../components/UI/Label';
 import { FormInput } from '../components/Form/FormInput';
 import FormRadioButton from '../components/Form/FormRadio';
 import FormSelect from '../components/Form/FormSelect';
+import FormDate from '../components/Form/FormDate';
 
 // Utils
 import { countries } from '../lib/utils/country';
 import { societys } from '../lib/utils/society';
-
-const MessageSuccess = styled.Text`
-  color: #0070f3;
-  padding: 10px;
-  text-align: center;
-  font-size: 17px;
-  font-weight: 600;
-`;
 
 const radiogroup_options = [
   { id: 0, label: 'anestesiólogo' },
   { id: 1, label: 'residente' }
 ];
 
+const radiogroup_options2 = [
+  { id: 0, label: 'masculino' },
+  { id: 1, label: 'femenino' }
+];
+
 const initialState = {
   name: '',
   lastName: '',
+  birthday: '',
+  gender: '',
   email: '',
-  dni: '',
   jobRole: '',
   country: '',
+  city: '',
   society: ''
 };
 const yupSchema = Yup.object().shape({
   name: Yup.string().required('Requerido'),
   lastName: Yup.string().required('Requerido'),
+  birthday: Yup.string().required('Ingrese una fecha de nacimiento'),
   email: Yup.string()
     .email()
     .required('Requerido'),
-  dni: Yup.string().required('Requerido'),
+  gender: Yup.string().required('Requerido'),
   jobRole: Yup.string().required('Requerido'),
   country: Yup.string().required('Requerido'),
+  city: Yup.string().required('Requerido'),
   society: Yup.string().required('Requerido')
 });
 
@@ -108,6 +110,8 @@ const SignIn = () => {
               handleBlur={handleBlur}
               error={errors.lastName}
             />
+            <Label>Fecha de Nacimiento</Label>
+            <FormDate name="birthday" error={errors.birthday} />
             <Label>Email</Label>
             <FormInput
               name="email"
@@ -115,53 +119,46 @@ const SignIn = () => {
               handleBlur={handleBlur}
               error={errors.email}
             />
-            <Label>DNI</Label>
-            <FormInput
-              name="dni"
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              error={errors.dni}
-            />
+            <Label>Teléfono</Label>
+            <Label>Categoría</Label>
             <FormRadioButton
               name="jobRole"
               options={radiogroup_options}
               horizontal={true}
               error={errors.jobRole}
             />
+            <Label>Genero</Label>
+            <FormRadioButton
+              name="gender"
+              options={radiogroup_options2}
+              horizontal={true}
+              error={errors.gender}
+            />
             <Label>País</Label>
             <FormSelect
               name="country"
-              placeholder={{
-                label: 'Seleccione un país...',
-                value: null,
-                color: '#9EA0A4'
-              }}
               options={countries}
               error={errors.country}
+            />
+            <Label>Ciudad</Label>
+            <FormInput
+              name="city"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={errors.city}
             />
             <Label>Sociedad</Label>
             <FormSelect
               name="society"
-              placeholder={{
-                label: 'Seleccione una sociedad...',
-                value: null,
-                color: '#9EA0A4'
-              }}
               options={societys}
               error={errors.society}
             />
             {successRegistry && (
-              <MessageSuccess>Registro exitoso</MessageSuccess>
+              <Text style={styles.messageSucces}>Registro exitoso</Text>
             )}
             <Button
               style={{ color: '#fff' }}
-              containerStyle={{
-                flex: 1,
-                margin: 10,
-                padding: 10,
-                borderRadius: 10,
-                backgroundColor: '#000'
-              }}
+              containerStyle={styles.btContainer}
               onPress={handleSubmit}
             >
               Enviar
@@ -172,5 +169,22 @@ const SignIn = () => {
     </Formik>
   );
 };
+
+const styles = StyleSheet.create({
+  messageSucces: {
+    color: '#0070f3',
+    padding: 10,
+    textAlign: 'center',
+    fontSize: 17,
+    fontWeight: '700'
+  },
+  btContainer: {
+    flex: 1,
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#000'
+  }
+});
 
 export default SignIn;
