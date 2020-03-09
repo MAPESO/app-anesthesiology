@@ -19,6 +19,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Confidential = () => {
   // State Tab
   const [tabIndex, setTab] = useState(0);
+  // State of responsable
+  const [cfp, setCfp] = useState('');
+  const [crm, setCrm] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   // State of description
   const [patientSelect, setPatient] = useState('');
   const [ageSelect, setAge] = useState('');
@@ -32,7 +37,9 @@ const Confidential = () => {
   const [problemSelect, setProblem] = useState('');
   const [descriptionProblem, setDescription] = useState('');
   // State of classification
-
+  const [activeSections, setActiveSections] = useState([]);
+  const [isChecked, setChecked] = useState([]);
+  const [gravitySelect, setGravity] = useState();
   // State of reflection
   const [radioGroup, setRadioGroup] = useState('');
   const [radioGroup2, setRadioGroup2] = useState('');
@@ -60,6 +67,15 @@ const Confidential = () => {
     learnedLessons
   };
   const values = {
+    // State of responsable
+    cfp,
+    setCfp,
+    crm,
+    setCrm,
+    name,
+    setName,
+    email,
+    setEmail,
     // State of description
     patientSelect,
     setPatient,
@@ -84,6 +100,12 @@ const Confidential = () => {
     descriptionProblem,
     setDescription,
     // State of classification
+    activeSections,
+    setActiveSections,
+    isChecked,
+    setChecked,
+    gravitySelect,
+    setGravity,
     // State of reflection
     radioGroup,
     setRadioGroup,
