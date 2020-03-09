@@ -96,20 +96,19 @@ const Anonymous = () => {
     logDescription,
     logReflection
   };
-  const handleChangeTab = () => {
+  const BtChangeTab = () => {
     setTab(tabIndex + 1);
   };
-  const handleTab = tabChange => {
+  const handleChangeTab = tabChange => {
     setTab(tabChange.i);
   };
-  console.log(tabIndex);
   return (
     <Container>
       <AnoProvider value={values}>
         <Tabs
           renderTabBar={() => <ScrollableTab />}
           page={tabIndex}
-          onChangeTab={tabChange => handleTab(tabChange)}
+          onChangeTab={tabChange => handleChangeTab(tabChange)}
         >
           <Tab heading="DESCRIPCIÓN">
             <DescriptionRoute />
@@ -138,7 +137,7 @@ const Anonymous = () => {
             showBackground={false}
             color="#0070F3"
             floatingIcon={<Icon name={'check'} size={30} color="#fff" />}
-            onPressMain={() => handleChangeTab()}
+            onPressMain={BtChangeTab}
           />
         )}
       </AnoProvider>
