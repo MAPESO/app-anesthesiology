@@ -1,143 +1,495 @@
 // Packages
-import React, { useContext } from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import Accordion from 'react-native-collapsible/Accordion';
+import React, { useContext, useEffect } from 'react';
+import { List } from 'react-native-paper';
+import { Text, View, ScrollView } from 'react-native';
 import CheckBox from 'react-native-check-box';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import * as Animatable from 'react-native-animatable';
-import styled from 'styled-components/native';
 
 // Components
-import { Layout } from '../../UI/Layout';
-import { Label } from '../../UI/Label';
+import { ContentCheckBox } from '../../UI/ContentCheckBox';
+import { Header } from '../../UI/Header';
 import { Select } from '../../UI/Select';
 
 // Context
 import { AnoContext } from '../../../context/AnoContext';
 
 // Utils
-import { SECTIONS } from '../../../lib/utils/classificationOptions';
-import { severityRating } from '../../../lib/utils/describingOption';
+import {
+  section_1,
+  section_2,
+  section_3,
+  section_4,
+  section_5,
+  section_6,
+  section_7,
+  section_8,
+  section_9,
+  section_10,
+  section_11,
+  section_12,
+  section_13,
+  section_14,
+  section_15,
+  section_16,
+  section_17,
+  severityRating
+} from '../../../lib/utils/classificationOptions';
 
-const Card = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  height: 56px;
-  padding-left: 25px;
-  padding-right: 18px;
-  align-items: center;
-  background-color: #fff;
-  margin-top: 15px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
-`;
-const CardContent = styled.View`
-  background-color: #eaeaea;
-  padding: 20px;
-`;
-const Title = styled.Text`
-  color: #444;
-  font-size: 14px;
-  font-weight: bold;
-`;
-// eslint-disable-next-line no-unused-vars
-const renderHeader = (section, index, isActive, sections) => {
-  return (
-    <Animatable.View
-      duration={300}
-      transition="backgroundColor"
-      style={{
-        paddingLeft: 15,
-        paddingRight: 15,
-        backgroundColor: isActive
-          ? 'rgba(255,255,255,1)'
-          : 'rgba(245,252,255,1)'
-      }}
-    >
-      {isActive ? (
-        <Card>
-          <Title>{section.title}</Title>
-          <Icon name="keyboard-arrow-up" size={30} color="red" />
-        </Card>
-      ) : (
-        <Card>
-          <Title>{section.title}</Title>
-          <Icon name="keyboard-arrow-down" size={30} color="#444" />
-        </Card>
-      )}
-    </Animatable.View>
-  );
-};
 const ClassificationRoute = () => {
   const user = useContext(AnoContext);
-  const updateSections = activeSections => {
-    user.setActiveSections(activeSections);
-  };
-  const handleClick = (indexA, indexB) => {
-    const temp = [...user.isChecked];
-    temp[indexA].data[indexB].value = !temp[indexA].data[indexB].value;
-    user.setChecked(temp);
-  };
-  const renderContent = (section, indexA, isActive, sections) => {
-    user.setChecked(sections);
-    return (
-      <Animatable.View
-        duration={300}
-        transition="backgroundColor"
-        style={{
-          paddingLeft: 15,
-          paddingRight: 15,
-          backgroundColor: isActive
-            ? 'rgba(255,255,255,1)'
-            : 'rgba(245,252,255,1)'
-        }}
-      >
-        <CardContent>
-          {section.data.map((item, indexB) => {
-            return (
-              <View key={item.id}>
-                {item.subTitle && (
-                  <View style={{ marginTop: 10 }}>
-                    <Text
-                      style={{
-                        fontWeight: 'bold',
-                        fontStyle: 'italic',
-                        marginBottom: 4
-                      }}
-                    >
-                      {item.subTitle}
-                    </Text>
-                  </View>
-                )}
-                <CheckBox
-                  style={{ marginTop: 5 }}
-                  onClick={() => handleClick(indexA, indexB)}
-                  isChecked={item.value}
-                  rightText={item.label}
-                />
-              </View>
-            );
-          })}
-        </CardContent>
-      </Animatable.View>
-    );
-  };
+  useEffect(() => {
+    user.setSection_1(section_1);
+    user.setSection_2(section_2);
+    user.setSection_3(section_3);
+    user.setSection_4(section_4);
+    user.setSection_5(section_5);
+    user.setSection_6(section_6);
+    user.setSection_7(section_7);
+    user.setSection_8(section_8);
+    user.setSection_9(section_9);
+    user.setSection_10(section_10);
+    user.setSection_11(section_11);
+    user.setSection_12(section_12);
+    user.setSection_13(section_13);
+    user.setSection_14(section_14);
+    user.setSection_15(section_15);
+    user.setSection_16(section_16);
+    user.setSection_17(section_17);
+  }, []);
   return (
     <ScrollView>
-      <Accordion
-        sections={SECTIONS}
-        activeSections={user.activeSections}
-        renderHeader={renderHeader}
-        renderContent={renderContent}
-        onChange={updateSections}
-      />
-      <Layout>
-        <Label>Grado de gravedad</Label>
+      <List.Section>
+        <List.Accordion title="Manejo de las vías aéreas">
+          <ContentCheckBox>
+            {user.section_1.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_1];
+                        checkBox[index].value = !item.value;
+                        user.setSection_1(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Pulmonar/Respiratorio">
+          <ContentCheckBox>
+            {user.section_2.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_2];
+                        checkBox[index].value = !item.value;
+                        user.setSection_2(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Complicaciones anestésicas">
+          <ContentCheckBox>
+            {user.section_3.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_3];
+                        checkBox[index].value = !item.value;
+                        user.setSection_3(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Cardiaco">
+          <ContentCheckBox>
+            {user.section_4.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_4];
+                        checkBox[index].value = !item.value;
+                        user.setSection_4(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Neurológico">
+          <ContentCheckBox>
+            {user.section_5.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_5];
+                        checkBox[index].value = !item.value;
+                        user.setSection_5(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Renal">
+          <ContentCheckBox>
+            {user.section_6.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_6];
+                        checkBox[index].value = !item.value;
+                        user.setSection_6(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Inmunológico">
+          <ContentCheckBox>
+            {user.section_7.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_7];
+                        checkBox[index].value = !item.value;
+                        user.setSection_7(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Medicación">
+          <ContentCheckBox>
+            {user.section_8.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_8];
+                        checkBox[index].value = !item.value;
+                        user.setSection_8(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Sangre">
+          <ContentCheckBox>
+            {user.section_9.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_9];
+                        checkBox[index].value = !item.value;
+                        user.setSection_9(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Anestesia regional">
+          <ContentCheckBox>
+            {user.section_10.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_10];
+                        checkBox[index].value = !item.value;
+                        user.setSection_10(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Complicaciones vasculares">
+          <ContentCheckBox>
+            {user.section_11.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_11];
+                        checkBox[index].value = !item.value;
+                        user.setSection_11(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Mortalidad">
+          <ContentCheckBox>
+            {user.section_12.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_12];
+                        checkBox[index].value = !item.value;
+                        user.setSection_12(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Administrativo">
+          <ContentCheckBox>
+            {user.section_13.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_13];
+                        checkBox[index].value = !item.value;
+                        user.setSection_13(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Documentación">
+          <ContentCheckBox>
+            {user.section_14.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_14];
+                        checkBox[index].value = !item.value;
+                        user.setSection_14(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Equipo">
+          <ContentCheckBox>
+            {user.section_15.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_15];
+                        checkBox[index].value = !item.value;
+                        user.setSection_15(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Infrestructura/Sistema">
+          <ContentCheckBox>
+            {user.section_16.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_16];
+                        checkBox[index].value = !item.value;
+                        user.setSection_16(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <List.Accordion title="Otro">
+          <ContentCheckBox>
+            {user.section_17.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.subTitle !== undefined ? (
+                    <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {item.subTitle}
+                    </Text>
+                  ) : (
+                    <CheckBox
+                      onClick={() => {
+                        const checkBox = [...section_17];
+                        checkBox[index].value = !item.value;
+                        user.setSection_17(checkBox);
+                      }}
+                      isChecked={item.value}
+                      rightText={item.label}
+                    />
+                  )}
+                </View>
+              );
+            })}
+          </ContentCheckBox>
+        </List.Accordion>
+        <Header title="Clasificación de gravedad" />
         <Select
-          value={user.gravitySelect}
+          value={user.severitySelect}
           options={severityRating}
-          onValueChange={user.setGravity}
+          onValueChange={user.setSeverity}
         />
-      </Layout>
+      </List.Section>
     </ScrollView>
   );
 };
