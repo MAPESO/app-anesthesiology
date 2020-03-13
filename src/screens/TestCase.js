@@ -31,14 +31,48 @@ const TestCase = () => {
   const [problemSelect, setProblem] = useState('');
   const [descriptionProblem, setDescription] = useState('');
   // State of classification
-  const [activeSections, setActiveSections] = useState([]);
-  const [isChecked, setChecked] = useState([]);
-  const [gravitySelect, setGravity] = useState();
+  const [section_1, setSection_1] = useState([]);
+  const [section_2, setSection_2] = useState([]);
+  const [section_3, setSection_3] = useState([]);
+  const [section_4, setSection_4] = useState([]);
+  const [section_5, setSection_5] = useState([]);
+  const [section_6, setSection_6] = useState([]);
+  const [section_7, setSection_7] = useState([]);
+  const [section_8, setSection_8] = useState([]);
+  const [section_9, setSection_9] = useState([]);
+  const [section_10, setSection_10] = useState([]);
+  const [section_11, setSection_11] = useState([]);
+  const [section_12, setSection_12] = useState([]);
+  const [section_13, setSection_13] = useState([]);
+  const [section_14, setSection_14] = useState([]);
+  const [section_15, setSection_15] = useState([]);
+  const [section_16, setSection_16] = useState([]);
+  const [section_17, setSection_17] = useState([]);
+  const [severitySelect, setSeverity] = useState('');
   // State of reflection
   const [radioGroup, setRadioGroup] = useState('');
   const [radioGroup2, setRadioGroup2] = useState('');
   const [contributingFactor, setContributingFactor] = useState('');
   const [learnedLessons, setLearnedLessons] = useState('');
+
+  // lo que sea
+  const onlyLabel = section_1.filter(item => item.label);
+  const onlyLabel_2 = section_2.filter(item => item.label);
+  const onlyLabel_3 = section_3.filter(item => item.label);
+  const onlyLabel_4 = section_4.filter(item => item.label);
+  const onlyLabel_5 = section_5.filter(item => item.label);
+  const onlyLabel_6 = section_6.filter(item => item.label);
+  const onlyLabel_7 = section_7.filter(item => item.label);
+  const onlyLabel_8 = section_8.filter(item => item.label);
+  const onlyLabel_9 = section_9.filter(item => item.label);
+  const onlyLabel_10 = section_10.filter(item => item.label);
+  const onlyLabel_11 = section_11.filter(item => item.label);
+  const onlyLabel_12 = section_12.filter(item => item.label);
+  const onlyLabel_13 = section_13.filter(item => item.label);
+  const onlyLabel_14 = section_14.filter(item => item.label);
+  const onlyLabel_15 = section_15.filter(item => item.label);
+  const onlyLabel_16 = section_16.filter(item => item.label);
+  const onlyLabel_17 = section_17.filter(item => item.label);
 
   // Logs
   const logDescription = {
@@ -60,6 +94,25 @@ const TestCase = () => {
     contributingFactor,
     learnedLessons
   };
+  const logClassification = [
+    ...onlyLabel,
+    ...onlyLabel_2,
+    ...onlyLabel_3,
+    ...onlyLabel_4,
+    ...onlyLabel_5,
+    ...onlyLabel_6,
+    ...onlyLabel_7,
+    ...onlyLabel_8,
+    ...onlyLabel_9,
+    ...onlyLabel_10,
+    ...onlyLabel_11,
+    ...onlyLabel_12,
+    ...onlyLabel_13,
+    ...onlyLabel_14,
+    ...onlyLabel_15,
+    ...onlyLabel_16,
+    ...onlyLabel_17
+  ];
   const values = {
     // State of description
     patientSelect,
@@ -85,12 +138,42 @@ const TestCase = () => {
     descriptionProblem,
     setDescription,
     // State of classification
-    activeSections,
-    setActiveSections,
-    isChecked,
-    setChecked,
-    gravitySelect,
-    setGravity,
+    section_1,
+    setSection_1,
+    section_2,
+    setSection_2,
+    section_3,
+    setSection_3,
+    section_4,
+    setSection_4,
+    section_5,
+    setSection_5,
+    section_6,
+    setSection_6,
+    section_7,
+    setSection_7,
+    section_8,
+    setSection_8,
+    section_9,
+    setSection_9,
+    section_10,
+    setSection_10,
+    section_11,
+    setSection_11,
+    section_12,
+    setSection_12,
+    section_13,
+    setSection_13,
+    section_14,
+    setSection_14,
+    section_15,
+    setSection_15,
+    section_16,
+    setSection_16,
+    section_17,
+    setSection_17,
+    severitySelect,
+    setSeverity,
     // State of reflection
     radioGroup,
     setRadioGroup,
@@ -102,7 +185,8 @@ const TestCase = () => {
     setLearnedLessons,
     // Logs
     logDescription,
-    logReflection
+    logReflection,
+    logClassification
   };
   const BtChangeTab = () => {
     setTab(tabIndex + 1);
