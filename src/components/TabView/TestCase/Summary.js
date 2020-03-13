@@ -15,6 +15,7 @@ import { TestContext } from '../../../context/TestContext';
 // Helpers
 import { checkLogDescription } from '../../../lib/helpers/logDescription';
 import { checkLogReflection } from '../../../lib/helpers/logReflection';
+import { checkLogClassification } from '../../../lib/helpers/logClassification';
 
 const SummaryRoute = () => {
   const user = useContext(TestContext);
@@ -22,6 +23,7 @@ const SummaryRoute = () => {
   const logReflectionArray = [user.logReflection];
   const isDescription = checkLogDescription(logDescriptionArray);
   const isReflection = checkLogReflection(logReflectionArray);
+  const isClassification = checkLogClassification(user.logClassification);
   const showEquipment = user => {
     if (
       user.assistantSelect !== '' ||
@@ -145,6 +147,463 @@ const SummaryRoute = () => {
             ) : null}
           </View>
         )}
+        <View style={{ marginTop: 15 }} />
+        <Label>
+          CLASIFICAR -{' '}
+          {isClassification === true || user.severitySelect !== ''
+            ? ''
+            : 'VACIO'}{' '}
+        </Label>
+        {isClassification === true || user.severitySelect !== '' ? (
+          <View>
+            <Text style={{ fontSize: 15 }}>Manejo de las vías aéreas</Text>
+            {user.section_1.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Pulmonar/Respiratorio</Text>
+            {user.section_2.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Complicaciones anestésicas</Text>
+            {user.section_3.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Cardiaco</Text>
+            {user.section_4.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Neurológico</Text>
+            {user.section_5.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Renal</Text>
+            {user.section_6.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Inmunológico</Text>
+            {user.section_7.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Medicación</Text>
+            {user.section_8.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Sangre</Text>
+            {user.section_9.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Anestesia regional</Text>
+            {user.section_10.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Complicaciones vasculares</Text>
+            {user.section_11.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Mortalidad</Text>
+            {user.section_12.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Administrativo</Text>
+            {user.section_13.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Documentación</Text>
+            {user.section_14.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Equipo</Text>
+            {user.section_15.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Infrestructura/Sistema</Text>
+            {user.section_16.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Otro</Text>
+            {user.section_17.map((item, index) => {
+              return (
+                <View key={index}>
+                  {item.value === true ? (
+                    <View>
+                      <Text style={{ marginLeft: 30 }}>> {item.label}</Text>
+                    </View>
+                  ) : null}
+                  {item.subTitle ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontStyle: 'italic',
+                          fontWeight: 'bold',
+                          marginLeft: 10
+                        }}
+                      >
+                        {item.subTitle}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              );
+            })}
+            <View style={{ marginTop: 15 }} />
+            <Text>Clasificación de gravedad</Text>
+            {user.severitySelect !== '' ? (
+              <Text style={{ marginLeft: 30 }}>> {user.severitySelect}</Text>
+            ) : null}
+          </View>
+        ) : null}
         <View style={{ marginTop: 15 }} />
         <Label>REFLEXIÓN - {isReflection === true ? '' : 'VACIO'} </Label>
         {isReflection && (
