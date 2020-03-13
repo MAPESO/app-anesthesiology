@@ -130,21 +130,6 @@ const typeProblem = [
   { label: 'Desconocido', value: 'Desconocido' }
 ];
 
-const severityRating = [
-  { label: 'Condiciones inseguras', value: 'Condiciones inseguras' },
-  { label: 'Casi accidente', value: 'Casi accidente' },
-  { label: 'Sin daños', value: 'Sin daños' },
-  {
-    label: 'Estrés o trastorno emocional',
-    value: 'Estrés o trastorno emocional'
-  },
-  { label: 'Tratamiento adicional', value: 'Tratamiento adicional' },
-  { label: 'Daño temporal', value: 'Daño temporal' },
-  { label: 'Daño permanente', value: 'Daño permanente' },
-  { label: 'Daño severo', value: 'Daño severo' },
-  { label: 'Muerte', value: 'Muerte' }
-];
-
 export {
   patients,
   ages,
@@ -154,6 +139,5 @@ export {
   time,
   doctor,
   other,
-  typeProblem,
-  severityRating
+  typeProblem
 };
