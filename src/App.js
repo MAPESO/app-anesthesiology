@@ -2,6 +2,7 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { BackdropProvider, ActionSheetProvider } from 'react-native-propel-kit';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import Login from './screens/Login';
 import SignIn from './screens/SignIn';
@@ -30,11 +31,13 @@ const AppContainer = createAppContainer(MainStack);
 
 const App = () => {
   return (
-    <BackdropProvider>
-      <ActionSheetProvider>
-        <AppContainer />
-      </ActionSheetProvider>
-    </BackdropProvider>
+    <PaperProvider>
+      <BackdropProvider>
+        <ActionSheetProvider>
+          <AppContainer />
+        </ActionSheetProvider>
+      </BackdropProvider>
+    </PaperProvider>
   );
 };
 
